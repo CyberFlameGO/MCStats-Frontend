@@ -1,4 +1,4 @@
-import { Input, Flex, FormControl } from "@chakra-ui/react";
+import { Input, Flex, FormControl, Select } from "@chakra-ui/react";
 import { RequestRenderer } from "react-rest-dom";
 import Pagination from "@choc-ui/paginator";
 import ServerCard from "../components/content/server-card/";
@@ -27,15 +27,29 @@ export default class Search extends React.Component {
       searchParam: null,
       searchInput: "",
       searchPage: 1,
+      searchVersion: null,
+      searchSoftware: null,
     };
 
     this.updateSearchInput = this.updateSearchInput.bind(this);
+    this.updateVersion = this.updateVersion.bind(this);
+    this.updateSoftware = this.updateSoftware.bind(this);
     this.sendForm = this.sendForm.bind(this);
     this.updatePage = this.updatePage.bind(this);
+
+    this.buildURL = this.buildURL.bind(this);
   }
 
   updateSearchInput(e) {
     this.setState({ searchInput: e.target.value, searchParam: null });
+  }
+
+  updateVersion(e) {
+    this.setState({ searchVersion: e.target.value });
+  }
+
+  updateSoftware(e) {
+    this.setState({ searchSoftware: e.target.value });
   }
 
   updatePage(number) {
@@ -51,31 +65,77 @@ export default class Search extends React.Component {
     this.setState({ searchParam: this.state.searchInput + "" });
   }
 
+  buildURL() {
+    let url =
+      "/search?motd=" +
+      this.state.searchParam +
+      "&page=" +
+      (this.state.searchPage - 1);
+
+    if (this.state.searchVersion != null && this.state.searchVersion !== "") {
+      url += "&version=" + this.state.searchVersion;
+    }
+
+    if (this.state.searchSoftware != null && this.state.searchSoftware !== "") {
+      url += "&software=" + this.state.searchSoftware;
+    }
+
+    return url;
+  }
+
   render() {
     return (
       <div>
         <form onSubmit={this.sendForm}>
-          <FormControl isRequired>
-            <Input
-              type="text"
-              placeholder="Search by address or MoTD"
-              onChange={this.updateSearchInput}
-              value={this.state.searchInput}
-              minLength={3}
-              maxLength={64}
-              width="250px"
+          <Flex>
+            <FormControl display="inline-flex">
+              <Input
+                placeholder="Search by MoTD"
+                onChange={this.updateSearchInput}
+                value={this.state.searchInput}
+                maxLength={64}
+                width="250px"
+              />
+            </FormControl>
+
+            <RequestRenderer
+              path="/lists"
+              static={true}
+              onData={({ data }) => (
+                <React.Fragment>
+                  <FormControl>
+                    <Select
+                      placeholder="All versions"
+                      onChange={this.updateVersion}
+                    >
+                      {data.versions.map((value, key) => (
+                        <option value={value} key={key}>
+                          {value}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    <Select
+                      placeholder="All software"
+                      onChange={this.updateSoftware}
+                    >
+                      {data.softwares.map((value, key) => (
+                        <option value={value} key={key}>
+                          {value}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </React.Fragment>
+              )}
             />
-          </FormControl>
+          </Flex>
         </form>
 
         {this.state.searchParam && (
           <RequestRenderer
-            path={
-              "/search?q=" +
-              this.state.searchParam +
-              "&page=" +
-              (this.state.searchPage - 1)
-            }
+            path={this.buildURL()}
             onData={({ data }) => (
               <React.Fragment>
                 <PaginationComponent
