@@ -89,7 +89,7 @@ const SidebarContent = () => {
           Summary
         </NavItem>
         <NavItem to="/search" icon={BiSearch} className="link">
-          Search by MoTD or Address
+          Search by MoTD
         </NavItem>
       </Flex>
     </Box>

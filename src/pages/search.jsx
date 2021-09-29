@@ -88,7 +88,7 @@ export default class Search extends React.Component {
       <div>
         <form onSubmit={this.sendForm}>
           <Flex>
-            <FormControl display="inline-flex">
+            <FormControl mr={4}>
               <Input
                 placeholder="Search by MoTD"
                 onChange={this.updateSearchInput}
@@ -103,7 +103,7 @@ export default class Search extends React.Component {
               static={true}
               onData={({ data }) => (
                 <React.Fragment>
-                  <FormControl>
+                  <FormControl mr={4}>
                     <Select
                       placeholder="All versions"
                       onChange={this.updateVersion}
@@ -115,7 +115,7 @@ export default class Search extends React.Component {
                       ))}
                     </Select>
                   </FormControl>
-                  <FormControl>
+                  <FormControl mr={4}>
                     <Select
                       placeholder="All software"
                       onChange={this.updateSoftware}
