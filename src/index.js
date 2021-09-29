@@ -11,7 +11,7 @@ import theme from "./theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RestContext.Provider url="http://localhost:8250/" >
+    <RestContext.Provider url="https://api.mcstats.live/">
       <ChakraProvider>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <App />
