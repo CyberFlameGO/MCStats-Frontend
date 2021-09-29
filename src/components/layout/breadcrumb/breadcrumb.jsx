@@ -1,9 +1,10 @@
 import styles from "./breadcrumb.module.sass";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import React from "react";
 
-function getPathObjects() {
+function getPathObjects(path) {
   const result = [
     {
       name: "Home",
@@ -11,7 +12,7 @@ function getPathObjects() {
     },
   ];
 
-  const paths = window.location.pathname.split("/");
+  const paths = path.split("/");
   let urls = [];
 
   for (let path of paths) {
@@ -27,8 +28,8 @@ function getPathObjects() {
   return result;
 }
 
-function getPathComponents() {
-  const paths = getPathObjects();
+function getPathComponents(path) {
+  const paths = getPathObjects(path);
   const last = paths.pop();
 
   const components = [];
@@ -53,8 +54,15 @@ function getPathComponents() {
   return components;
 }
 
-export default function PageBreadcrumb() {
-  const items = getPathComponents();
+function PageBreadcrumb({ history }) {
+  const [path, setPath] = React.useState(window.location.pathname);
+  const items = getPathComponents(path);
+
+  React.useEffect(() => {
+    history.listen((location, action) => {
+      setPath(location.pathname);
+    });
+  }, [history]);
 
   return (
     <div className={styles["breadcrumb"]}>
@@ -68,3 +76,5 @@ export default function PageBreadcrumb() {
     </div>
   );
 }
+
+export default withRouter(PageBreadcrumb);

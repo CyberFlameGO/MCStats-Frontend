@@ -1697,6 +1697,11 @@
   dependencies:
     "@chakra-ui/utils" "1.8.2"
 
+"@choc-ui/paginator@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@choc-ui/paginator/-/paginator-3.2.0.tgz#2aca98080d91c5d551887edb3c5a2181dee9ec1a"
+  integrity sha512-TnJXkYPink+6SA2oJWEbylxynKNXULtjFNrOD4iQurROqmH4TFDxruBselbCwbcJ11GKvyyklGtXXJxE2RiGLw==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -9996,6 +10001,11 @@ react-remove-scroll@2.4.1:
     tslib "^1.0.0"
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
+
+react-rest-dom@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-rest-dom/-/react-rest-dom-0.1.1.tgz#38daed2cf7fd2c0d0f1f5b9a14c1667fe36701bb"
+  integrity sha512-hltWTqkma976SbPeJBKYgfJKI1hbFbOZxUfKVO415iwwbbmuY9xzckUMvcKr2IOD61qCHkrxgB+I0rEHjezAtA==
 
 react-router-dom@^5.3.0:
   version "5.3.0"

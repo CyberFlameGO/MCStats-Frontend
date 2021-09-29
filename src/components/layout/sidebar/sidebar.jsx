@@ -8,25 +8,26 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { BiSearch, BiHome } from "react-icons/all";
 import { Link } from "react-router-dom";
 
 const NavSection = (props) => {
   const { children } = props;
   return (
     <Flex
-        align="center"
-        px="4"
-        pl="4"
-        py="3"
-        color={useColorModeValue("inherit", "gray.400")}
-        role="group"
-        fontWeight="bold"
-        transition=".15s ease"
-      >
-        {children}
-      </Flex>
-  )
-}
+      align="center"
+      px="4"
+      pl="4"
+      py="3"
+      color={useColorModeValue("inherit", "gray.400")}
+      role="group"
+      fontWeight="bold"
+      transition=".15s ease"
+    >
+      {children}
+    </Flex>
+  );
+};
 
 const NavItem = (props) => {
   const { icon, children, ...rest } = props;
@@ -83,9 +84,12 @@ const SidebarContent = () => {
         color="gray.600"
         aria-label="Main Navigation"
       >
-        <NavSection className="text-bold">SECTION</NavSection>
-        <NavItem to="/" className="link">
-          Coming soon, more features.
+        <NavSection className="text-bold">Pages</NavSection>
+        <NavItem to="/" icon={BiHome} className="link">
+          Summary
+        </NavItem>
+        <NavItem to="/search" icon={BiSearch} className="link">
+          Search by MoTD or Address
         </NavItem>
       </Flex>
     </Box>
@@ -103,9 +107,7 @@ export default function Sidebar() {
       marginRight="50px"
       display="inline-flex"
     >
-      <SidebarContent
-        display={{ base: "none", md: "unset" }}
-      />
+      <SidebarContent display={{ base: "none", md: "unset" }} />
       <Drawer
         isOpen={sidebar.isOpen}
         onClose={sidebar.onClose}
